@@ -1,3 +1,6 @@
 .metadata
 .recommenders
 RemoteSystemsTempFiles
+Orders
+*.project
+*.classpath
