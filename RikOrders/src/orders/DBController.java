@@ -43,17 +43,17 @@ public class DBController {
 	}
 
 	public boolean updateDesc(String orderNumStr, String desc ){
-		
+
 		boolean success = false;
-		
+
 		CallableStatement cStmt = null;
-		
+
 		if(orderNumStr == null || orderNumStr.equals(""))
 			return false;
-		
+
 		int orderNum = Integer.parseInt(orderNumStr); 
-		
-		
+
+
 		try {
 			cStmt = connection.prepareCall("{call update_description (?,?)}");
 
@@ -66,11 +66,11 @@ public class DBController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		return success;
-		
+
 	}
-	
+
 	public boolean changeStatus(int orderNum, String newStatus){
 		CallableStatement cStmt = null;
 		boolean success = false;
@@ -241,5 +241,35 @@ public class DBController {
 			e.printStackTrace();
 		}
 
+	}
+
+	public int[] countByStatuses() {
+		try {
+			select(false);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int[] result = new int[4];
+
+		for(Row row: rows){
+			if(row.getStatus().equals("לקוח")){
+				result[0]++;
+			}
+			if(row.getStatus().equals("הוזמן מספק")){
+				result[1]++;
+			}
+			if(row.getStatus().equals("הגיע לחנות")){
+				result[2]++;
+			}
+			if(row.getStatus().equals("נאמר ללקוח")){
+				result[3]++;
+			}
+
+		}
+
+
+		return result;
 	}
 }

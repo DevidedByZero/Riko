@@ -27,9 +27,18 @@ public class Welcome extends HttpServlet {
 		if(session.getAttribute("user")==null || !session.getAttribute("user").equals("1501"))
 			resp.sendRedirect(Constants.SERVER_URL + Constants.SLASH + Constants.LOGIN_PG);
 		
-		else
-			req.getRequestDispatcher("form.jsp").forward(req, resp);
+		else{
+			DBController dbc = new DBController("satyr", "11223344");
 			
+			int[] count = dbc.countByStatuses();
+			
+			
+			req.setAttribute("custCount", count[0]);
+			req.setAttribute("orderedCount", count[1]);
+			req.setAttribute("arrivedCount", count[2]);
+			req.setAttribute("notifiedCount", count[3]);
+			req.getRequestDispatcher("form.jsp").forward(req, resp);
+		}
 	}
 
 	@Override
@@ -53,12 +62,7 @@ public class Welcome extends HttpServlet {
 
 		}
 		
-		req.setAttribute("custCount", "");
-		req.setAttribute("orderedCount", "");
-		req.setAttribute("arrivedCount", "");
-		req.setAttribute("notifiedCount", "");
 		
-
 		if(req.getParameter("insert_button") != null){
 			req.setCharacterEncoding("UTF-8");
 

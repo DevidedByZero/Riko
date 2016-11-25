@@ -67,7 +67,7 @@
 
 
 	<div dir=rtl>
-		<h1>כמות רשומות לפי מצב </h1>
+		<h4>כמות רשומות לפי מצב </h4>
 	
 		<ul style="list-style-type:square">
   			<li>${custCount} לקוח</li>
